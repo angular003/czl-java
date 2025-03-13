@@ -27,9 +27,9 @@ configure<PublishingExtension> {
                 }
 
                 scm {
-                    connection.set("scm:git:git://github.com/stainless-sdks/czl-java.git")
-                    developerConnection.set("scm:git:git://github.com/stainless-sdks/czl-java.git")
-                    url.set("https://github.com/stainless-sdks/czl-java")
+                    connection.set("scm:git:git://github.com/angular003/czl-java.git")
+                    developerConnection.set("scm:git:git://github.com/angular003/czl-java.git")
+                    url.set("https://github.com/angular003/czl-java")
                 }
 
                 versionMapping {
