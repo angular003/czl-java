@@ -1,7 +1,11 @@
 # Czl Java API Library
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.czl.api/czl-java)](https://central.sonatype.com/artifact/com.czl.api/czl-java/0.0.1-alpha.0)
-[![javadoc](https://javadoc.io/badge2/com.czl.api/czl-java/0.0.1-alpha.0/javadoc.svg)](https://javadoc.io/doc/com.czl.api/czl-java/0.0.1-alpha.0)
+<!-- x-release-please-start-version -->
+
+[![Maven Central](https://img.shields.io/maven-central/v/com.czl.api/czl-java)](https://central.sonatype.com/artifact/com.czl.api/czl-java/0.0.1-alpha.1)
+[![javadoc](https://javadoc.io/badge2/com.czl.api/czl-java/0.0.1-alpha.1/javadoc.svg)](https://javadoc.io/doc/com.czl.api/czl-java/0.0.1-alpha.1)
+
+<!-- x-release-please-end -->
 
 The Czl Java SDK provides convenient access to the Czl REST API from applications written in Java.
 
@@ -11,10 +15,12 @@ The REST API documentation can be found on [docs.czl.com](https://docs.czl.com).
 
 ## Installation
 
+<!-- x-release-please-start-version -->
+
 ### Gradle
 
 ```kotlin
-implementation("com.czl.api:czl-java:0.0.1-alpha.0")
+implementation("com.czl.api:czl-java:0.0.1-alpha.1")
 ```
 
 ### Maven
@@ -23,9 +29,11 @@ implementation("com.czl.api:czl-java:0.0.1-alpha.0")
 <dependency>
     <groupId>com.czl.api</groupId>
     <artifactId>czl-java</artifactId>
-    <version>0.0.1-alpha.0</version>
+    <version>0.0.1-alpha.1</version>
 </dependency>
 ```
+
+<!-- x-release-please-end -->
 
 ## Requirements
 
@@ -491,4 +499,4 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/czl-java/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/angular003/czl-java/issues) with questions, bugs, or suggestions.
