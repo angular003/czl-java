@@ -14,6 +14,7 @@ import com.czl.api.core.http.Headers
 import com.czl.api.core.http.QueryParams
 import com.czl.api.core.immutableEmptyMap
 import com.czl.api.core.toImmutable
+import com.czl.api.errors.CzlInvalidDataException
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
@@ -29,20 +30,56 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
+    /**
+     * @throws CzlInvalidDataException if the JSON field has an unexpected type or is unexpectedly
+     *   missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun accessToken(): String = body.accessToken()
 
+    /**
+     * @throws CzlInvalidDataException if the JSON field has an unexpected type (e.g. if the server
+     *   responded with an unexpected value).
+     */
     fun apis(): Optional<List<String>> = body.apis()
 
+    /**
+     * @throws CzlInvalidDataException if the JSON field has an unexpected type (e.g. if the server
+     *   responded with an unexpected value).
+     */
     fun productId(): Optional<Long> = body.productId()
 
+    /**
+     * @throws CzlInvalidDataException if the JSON field has an unexpected type (e.g. if the server
+     *   responded with an unexpected value).
+     */
     fun times(): Optional<Long> = body.times()
 
+    /**
+     * Returns the raw JSON value of [accessToken].
+     *
+     * Unlike [accessToken], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _accessToken(): JsonField<String> = body._accessToken()
 
+    /**
+     * Returns the raw JSON value of [apis].
+     *
+     * Unlike [apis], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _apis(): JsonField<List<String>> = body._apis()
 
+    /**
+     * Returns the raw JSON value of [productId].
+     *
+     * Unlike [productId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _productId(): JsonField<Long> = body._productId()
 
+    /**
+     * Returns the raw JSON value of [times].
+     *
+     * Unlike [times], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _times(): JsonField<Long> = body._times()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -77,22 +114,58 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
+        /**
+         * @throws CzlInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun accessToken(): String = accessToken.getRequired("access_token")
 
+        /**
+         * @throws CzlInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
         fun apis(): Optional<List<String>> = Optional.ofNullable(apis.getNullable("apis"))
 
+        /**
+         * @throws CzlInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
         fun productId(): Optional<Long> = Optional.ofNullable(productId.getNullable("product_id"))
 
+        /**
+         * @throws CzlInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
         fun times(): Optional<Long> = Optional.ofNullable(times.getNullable("times"))
 
+        /**
+         * Returns the raw JSON value of [accessToken].
+         *
+         * Unlike [accessToken], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("access_token")
         @ExcludeMissing
         fun _accessToken(): JsonField<String> = accessToken
 
+        /**
+         * Returns the raw JSON value of [apis].
+         *
+         * Unlike [apis], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("apis") @ExcludeMissing fun _apis(): JsonField<List<String>> = apis
 
+        /**
+         * Returns the raw JSON value of [productId].
+         *
+         * Unlike [productId], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("product_id") @ExcludeMissing fun _productId(): JsonField<Long> = productId
 
+        /**
+         * Returns the raw JSON value of [times].
+         *
+         * Unlike [times], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("times") @ExcludeMissing fun _times(): JsonField<Long> = times
 
         @JsonAnyGetter
@@ -148,16 +221,35 @@ private constructor(
 
             fun accessToken(accessToken: String) = accessToken(JsonField.of(accessToken))
 
+            /**
+             * Sets [Builder.accessToken] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accessToken] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun accessToken(accessToken: JsonField<String>) = apply {
                 this.accessToken = accessToken
             }
 
             fun apis(apis: List<String>) = apis(JsonField.of(apis))
 
+            /**
+             * Sets [Builder.apis] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.apis] with a well-typed `List<String>` value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun apis(apis: JsonField<List<String>>) = apply {
                 this.apis = apis.map { it.toMutableList() }
             }
 
+            /**
+             * Adds a single [String] to [apis].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
             fun addApi(api: String) = apply {
                 apis =
                     (apis ?: JsonField.of(mutableListOf())).also { checkKnown("apis", it).add(api) }
@@ -165,10 +257,24 @@ private constructor(
 
             fun productId(productId: Long) = productId(JsonField.of(productId))
 
+            /**
+             * Sets [Builder.productId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.productId] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun productId(productId: JsonField<Long>) = apply { this.productId = productId }
 
             fun times(times: Long) = times(JsonField.of(times))
 
+            /**
+             * Sets [Builder.times] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.times] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun times(times: JsonField<Long>) = apply { this.times = times }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -250,20 +356,51 @@ private constructor(
 
         fun accessToken(accessToken: String) = apply { body.accessToken(accessToken) }
 
+        /**
+         * Sets [Builder.accessToken] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accessToken] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun accessToken(accessToken: JsonField<String>) = apply { body.accessToken(accessToken) }
 
         fun apis(apis: List<String>) = apply { body.apis(apis) }
 
+        /**
+         * Sets [Builder.apis] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.apis] with a well-typed `List<String>` value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun apis(apis: JsonField<List<String>>) = apply { body.apis(apis) }
 
+        /**
+         * Adds a single [String] to [apis].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
         fun addApi(api: String) = apply { body.addApi(api) }
 
         fun productId(productId: Long) = apply { body.productId(productId) }
 
+        /**
+         * Sets [Builder.productId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.productId] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun productId(productId: JsonField<Long>) = apply { body.productId(productId) }
 
         fun times(times: Long) = apply { body.times(times) }
 
+        /**
+         * Sets [Builder.times] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.times] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun times(times: JsonField<Long>) = apply { body.times(times) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
