@@ -172,6 +172,19 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [TokenRetrieveAccessTokenParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .corpId()
+         * .userId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): TokenRetrieveAccessTokenParams =
             TokenRetrieveAccessTokenParams(
                 checkRequired("corpId", corpId),
