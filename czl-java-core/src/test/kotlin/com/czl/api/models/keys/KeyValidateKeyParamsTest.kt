@@ -24,14 +24,4 @@ internal class KeyValidateKeyParamsTest {
 
         assertThat(queryParams).isEqualTo(QueryParams.builder().put("key", "key").build())
     }
-
-    @Disabled("skipped: tests are disabled for the time being")
-    @Test
-    fun queryParamsWithoutOptionalFields() {
-        val params = KeyValidateKeyParams.builder().key("key").build()
-
-        val queryParams = params._queryParams()
-
-        assertThat(queryParams).isEqualTo(QueryParams.builder().put("key", "key").build())
-    }
 }
