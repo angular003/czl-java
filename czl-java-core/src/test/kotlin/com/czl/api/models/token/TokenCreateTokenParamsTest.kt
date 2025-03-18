@@ -2,6 +2,7 @@
 
 package com.czl.api.models.token
 
+import kotlin.jvm.optionals.getOrNull
 import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
@@ -35,7 +36,7 @@ internal class TokenCreateTokenParamsTest {
 
         assertNotNull(body)
         assertThat(body.accessToken()).isEqualTo("access_token")
-        assertThat(body.apis()).contains(listOf("string"))
+        assertThat(body.apis().getOrNull()).containsExactly("string")
         assertThat(body.productId()).contains(0L)
         assertThat(body.times()).contains(0L)
     }
