@@ -151,6 +151,11 @@ class CzlOkHttpClientAsync private constructor() {
 
         fun fromEnv() = apply { clientOptions.fromEnv() }
 
+        /**
+         * Returns an immutable instance of [CzlClientAsync].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         */
         fun build(): CzlClientAsync =
             CzlClientAsyncImpl(
                 clientOptions

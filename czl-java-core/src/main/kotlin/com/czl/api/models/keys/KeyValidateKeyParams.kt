@@ -162,6 +162,18 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [KeyValidateKeyParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .key()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): KeyValidateKeyParams =
             KeyValidateKeyParams(
                 checkRequired("key", key),
