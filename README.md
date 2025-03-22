@@ -7,7 +7,7 @@
 
 <!-- x-release-please-end -->
 
-The Czl Java SDK provides convenient access to the Czl REST API from applications written in Java.
+The Czl Java SDK provides convenient access to the [Czl REST API](https://docs.czl.com) from applications written in Java.
 
 It is generated with [Stainless](https://www.stainless.com/).
 
@@ -31,9 +31,9 @@ implementation("com.czl.api:czl-java:0.0.1-alpha.0")
 
 ```xml
 <dependency>
-    <groupId>com.czl.api</groupId>
-    <artifactId>czl-java</artifactId>
-    <version>0.0.1-alpha.0</version>
+  <groupId>com.czl.api</groupId>
+  <artifactId>czl-java</artifactId>
+  <version>0.0.1-alpha.0</version>
 </dependency>
 ```
 
