@@ -1,23 +1,16 @@
+// File generated from our OpenAPI spec by Stainless.
+
 package com.czl.api.errors
 
+import com.czl.api.core.JsonValue
 import com.czl.api.core.http.Headers
 
 abstract class CzlServiceException
-@JvmOverloads
-constructor(
-    private val statusCode: Int,
-    private val headers: Headers,
-    private val body: String,
-    private val error: CzlError,
-    message: String = "$statusCode: $error",
-    cause: Throwable? = null,
-) : CzlException(message, cause) {
+protected constructor(message: String, cause: Throwable? = null) : CzlException(message, cause) {
 
-    fun statusCode(): Int = statusCode
+    abstract fun statusCode(): Int
 
-    fun headers(): Headers = headers
+    abstract fun headers(): Headers
 
-    fun body(): String = body
-
-    fun error(): CzlError = error
+    abstract fun body(): JsonValue
 }

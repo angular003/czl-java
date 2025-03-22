@@ -146,10 +146,16 @@ class CzlOkHttpClientAsync private constructor() {
 
         fun apiKey(apiKey: String?) = apply { clientOptions.apiKey(apiKey) }
 
+        /** Alias for calling [Builder.apiKey] with `apiKey.orElse(null)`. */
         fun apiKey(apiKey: Optional<String>) = apiKey(apiKey.getOrNull())
 
         fun fromEnv() = apply { clientOptions.fromEnv() }
 
+        /**
+         * Returns an immutable instance of [CzlClientAsync].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         */
         fun build(): CzlClientAsync =
             CzlClientAsyncImpl(
                 clientOptions

@@ -94,6 +94,7 @@ private constructor(
 
         fun apiKey(apiKey: String?) = apply { this.apiKey = apiKey }
 
+        /** Alias for calling [Builder.apiKey] with `apiKey.orElse(null)`. */
         fun apiKey(apiKey: Optional<String>) = apiKey(apiKey.getOrNull())
 
         fun headers(headers: Headers) = apply {
@@ -178,6 +179,18 @@ private constructor(
 
         fun fromEnv() = apply { System.getenv("CZL_API_KEY")?.let { apiKey(it) } }
 
+        /**
+         * Returns an immutable instance of [ClientOptions].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .httpClient()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): ClientOptions {
             val httpClient = checkRequired("httpClient", httpClient)
 
