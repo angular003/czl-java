@@ -195,16 +195,16 @@ The SDK throws custom unchecked exception types:
 
 - [`CzlServiceException`](czl-java-core/src/main/kotlin/com/czl/api/errors/CzlServiceException.kt): Base class for HTTP errors. See this table for which exception subclass is thrown for each HTTP status code:
 
-  | Status | Exception                       |
-  | ------ | ------------------------------- |
-  | 400    | `BadRequestException`           |
-  | 401    | `AuthenticationException`       |
-  | 403    | `PermissionDeniedException`     |
-  | 404    | `NotFoundException`             |
-  | 422    | `UnprocessableEntityException`  |
-  | 429    | `RateLimitException`            |
-  | 5xx    | `InternalServerException`       |
-  | others | `UnexpectedStatusCodeException` |
+  | Status | Exception                                                                                                            |
+  | ------ | -------------------------------------------------------------------------------------------------------------------- |
+  | 400    | [`BadRequestException`](czl-java-core/src/main/kotlin/com/czl/api/errors/BadRequestException.kt)                     |
+  | 401    | [`UnauthorizedException`](czl-java-core/src/main/kotlin/com/czl/api/errors/UnauthorizedException.kt)                 |
+  | 403    | [`PermissionDeniedException`](czl-java-core/src/main/kotlin/com/czl/api/errors/PermissionDeniedException.kt)         |
+  | 404    | [`NotFoundException`](czl-java-core/src/main/kotlin/com/czl/api/errors/NotFoundException.kt)                         |
+  | 422    | [`UnprocessableEntityException`](czl-java-core/src/main/kotlin/com/czl/api/errors/UnprocessableEntityException.kt)   |
+  | 429    | [`RateLimitException`](czl-java-core/src/main/kotlin/com/czl/api/errors/RateLimitException.kt)                       |
+  | 5xx    | [`InternalServerException`](czl-java-core/src/main/kotlin/com/czl/api/errors/InternalServerException.kt)             |
+  | others | [`UnexpectedStatusCodeException`](czl-java-core/src/main/kotlin/com/czl/api/errors/UnexpectedStatusCodeException.kt) |
 
 - [`CzlIoException`](czl-java-core/src/main/kotlin/com/czl/api/errors/CzlIoException.kt): I/O networking errors.
 
