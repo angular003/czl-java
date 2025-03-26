@@ -4,34 +4,26 @@ package com.czl.api.models.token
 
 import com.czl.api.core.ExcludeMissing
 import com.czl.api.core.JsonValue
-import com.czl.api.core.NoAutoDetect
-import com.czl.api.core.immutableEmptyMap
-import com.czl.api.core.toImmutable
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
+import java.util.Collections
 import java.util.Objects
 
-@NoAutoDetect
 class TokenRetrieveAccessTokenResponse
-@JsonCreator
-private constructor(
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap()
-) {
+private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+    @JsonCreator private constructor() : this(mutableMapOf())
+
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
 
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): TokenRetrieveAccessTokenResponse = apply {
-        if (validated) {
-            return@apply
-        }
-
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -81,7 +73,17 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          */
         fun build(): TokenRetrieveAccessTokenResponse =
-            TokenRetrieveAccessTokenResponse(additionalProperties.toImmutable())
+            TokenRetrieveAccessTokenResponse(additionalProperties.toMutableMap())
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): TokenRetrieveAccessTokenResponse = apply {
+        if (validated) {
+            return@apply
+        }
+
+        validated = true
     }
 
     override fun equals(other: Any?): Boolean {
