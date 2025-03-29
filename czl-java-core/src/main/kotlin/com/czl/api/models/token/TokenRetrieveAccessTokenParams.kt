@@ -2,7 +2,6 @@
 
 package com.czl.api.models.token
 
-import com.czl.api.core.NoAutoDetect
 import com.czl.api.core.Params
 import com.czl.api.core.checkRequired
 import com.czl.api.core.http.Headers
@@ -26,16 +25,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.corpId.let { queryParams.put("corp_id", listOf(it.toString())) }
-        this.userId.let { queryParams.put("user_id", listOf(it.toString())) }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -54,7 +43,6 @@ private constructor(
     }
 
     /** A builder for [TokenRetrieveAccessTokenParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var corpId: String? = null
@@ -172,6 +160,19 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [TokenRetrieveAccessTokenParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .corpId()
+         * .userId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): TokenRetrieveAccessTokenParams =
             TokenRetrieveAccessTokenParams(
                 checkRequired("corpId", corpId),
@@ -180,6 +181,17 @@ private constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                put("corp_id", corpId)
+                put("user_id", userId)
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
