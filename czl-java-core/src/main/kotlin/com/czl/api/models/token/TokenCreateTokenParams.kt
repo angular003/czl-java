@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** 通过 accessToken 和数据域生成新的访问 Token */
 class TokenCreateTokenParams
@@ -538,6 +539,27 @@ private constructor(
             times()
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: CzlInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (accessToken.asKnown().isPresent) 1 else 0) +
+                (apis.asKnown().getOrNull()?.size ?: 0) +
+                (if (productId.asKnown().isPresent) 1 else 0) +
+                (if (times.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
