@@ -374,6 +374,19 @@ JsonValue complexValue = JsonValue.from(Map.of(
 ));
 ```
 
+Normally a `Builder` class's `build` method will throw [`IllegalStateException`](https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html) if any required parameter or property is unset.
+
+To forcibly omit a required parameter or property, pass [`JsonMissing`](czl-java-core/src/main/kotlin/com/czl/api/core/Values.kt):
+
+```java
+import com.czl.api.core.JsonMissing;
+import com.czl.api.models.keys.KeyValidateTokenParams;
+
+KeyValidateTokenParams params = KeyValidateTokenParams.builder()
+    .token(JsonMissing.of())
+    .build();
+```
+
 ### Response properties
 
 To access undocumented response properties, call the `_additionalProperties()` method:
