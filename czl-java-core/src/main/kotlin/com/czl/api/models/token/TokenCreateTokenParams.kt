@@ -352,19 +352,19 @@ private constructor(
          * @throws CzlInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun apis(): Optional<List<String>> = Optional.ofNullable(apis.getNullable("apis"))
+        fun apis(): Optional<List<String>> = apis.getOptional("apis")
 
         /**
          * @throws CzlInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun productId(): Optional<Long> = Optional.ofNullable(productId.getNullable("product_id"))
+        fun productId(): Optional<Long> = productId.getOptional("product_id")
 
         /**
          * @throws CzlInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun times(): Optional<Long> = Optional.ofNullable(times.getNullable("times"))
+        fun times(): Optional<Long> = times.getOptional("times")
 
         /**
          * Returns the raw JSON value of [accessToken].
