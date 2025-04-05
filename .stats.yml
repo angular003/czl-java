@@ -1,2 +1,4 @@
 configured_endpoints: 4
 openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/aike-angular003%2Fczl-b65156e0ccc7e58775a3d6c32f962087639a6f1b480afe345e3fdc1e0b81ee21.yml
+openapi_spec_hash: f87d4b3d3f348b650177761197978ec9
+config_hash: 8877c2b6156e0ff4f66661f1b08c6e9e
