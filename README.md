@@ -51,7 +51,7 @@ import com.czl.api.client.okhttp.CzlOkHttpClient;
 import com.czl.api.models.keys.KeyValidateTokenParams;
 import com.czl.api.models.keys.KeyValidateTokenResponse;
 
-// Configures using the `CZL_API_KEY` environment variable
+// Configures using the `CZL_API_KEY` and `CZL_BASE_URL` environment variables
 CzlClient client = CzlOkHttpClient.fromEnv();
 
 KeyValidateTokenParams params = KeyValidateTokenParams.builder()
@@ -68,7 +68,7 @@ Configure the client using environment variables:
 import com.czl.api.client.CzlClient;
 import com.czl.api.client.okhttp.CzlOkHttpClient;
 
-// Configures using the `CZL_API_KEY` environment variable
+// Configures using the `CZL_API_KEY` and `CZL_BASE_URL` environment variables
 CzlClient client = CzlOkHttpClient.fromEnv();
 ```
 
@@ -90,7 +90,7 @@ import com.czl.api.client.CzlClient;
 import com.czl.api.client.okhttp.CzlOkHttpClient;
 
 CzlClient client = CzlOkHttpClient.builder()
-    // Configures using the `CZL_API_KEY` environment variable
+    // Configures using the `CZL_API_KEY` and `CZL_BASE_URL` environment variables
     .fromEnv()
     .apiKey("My API Key")
     .build();
@@ -98,9 +98,10 @@ CzlClient client = CzlOkHttpClient.builder()
 
 See this table for the available options:
 
-| Setter   | Environment variable | Required | Default value |
-| -------- | -------------------- | -------- | ------------- |
-| `apiKey` | `CZL_API_KEY`        | false    | -             |
+| Setter    | Environment variable | Required | Default value               |
+| --------- | -------------------- | -------- | --------------------------- |
+| `apiKey`  | `CZL_API_KEY`        | false    | -                           |
+| `baseUrl` | `CZL_BASE_URL`       | true     | `"https://api.example.com"` |
 
 > [!TIP]
 > Don't create more than one client in the same application. Each client has a connection pool and
@@ -131,7 +132,7 @@ import com.czl.api.models.keys.KeyValidateTokenParams;
 import com.czl.api.models.keys.KeyValidateTokenResponse;
 import java.util.concurrent.CompletableFuture;
 
-// Configures using the `CZL_API_KEY` environment variable
+// Configures using the `CZL_API_KEY` and `CZL_BASE_URL` environment variables
 CzlClient client = CzlOkHttpClient.fromEnv();
 
 KeyValidateTokenParams params = KeyValidateTokenParams.builder()
@@ -149,7 +150,7 @@ import com.czl.api.models.keys.KeyValidateTokenParams;
 import com.czl.api.models.keys.KeyValidateTokenResponse;
 import java.util.concurrent.CompletableFuture;
 
-// Configures using the `CZL_API_KEY` environment variable
+// Configures using the `CZL_API_KEY` and `CZL_BASE_URL` environment variables
 CzlClientAsync client = CzlOkHttpClientAsync.fromEnv();
 
 KeyValidateTokenParams params = KeyValidateTokenParams.builder()
