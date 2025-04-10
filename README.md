@@ -1,31 +1,43 @@
 # Czl Java API Library
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.czl.api/czl-java)](https://central.sonatype.com/artifact/com.czl.api/czl-java/0.0.1-alpha.0)
-[![javadoc](https://javadoc.io/badge2/com.czl.api/czl-java/0.0.1-alpha.0/javadoc.svg)](https://javadoc.io/doc/com.czl.api/czl-java/0.0.1-alpha.0)
+<!-- x-release-please-start-version -->
 
-The Czl Java SDK provides convenient access to the Czl REST API from applications written in Java.
+[![Maven Central](https://img.shields.io/maven-central/v/com.czl.api/czl-java)](https://central.sonatype.com/artifact/com.czl.api/czl-java/0.1.0-alpha.1)
+[![javadoc](https://javadoc.io/badge2/com.czl.api/czl-java/0.1.0-alpha.1/javadoc.svg)](https://javadoc.io/doc/com.czl.api/czl-java/0.1.0-alpha.1)
+
+<!-- x-release-please-end -->
+
+The Czl Java SDK provides convenient access to the [Czl REST API](https://docs.czl.com) from applications written in Java.
 
 It is generated with [Stainless](https://www.stainless.com/).
 
-The REST API documentation can be found on [docs.czl.com](https://docs.czl.com). Javadocs are also available on [javadoc.io](https://javadoc.io/doc/com.czl.api/czl-java/0.0.1-alpha.0).
+<!-- x-release-please-start-version -->
+
+The REST API documentation can be found on [docs.czl.com](https://docs.czl.com). Javadocs are also available on [javadoc.io](https://javadoc.io/doc/com.czl.api/czl-java/0.1.0-alpha.1).
+
+<!-- x-release-please-end -->
 
 ## Installation
+
+<!-- x-release-please-start-version -->
 
 ### Gradle
 
 ```kotlin
-implementation("com.czl.api:czl-java:0.0.1-alpha.0")
+implementation("com.czl.api:czl-java:0.1.0-alpha.1")
 ```
 
 ### Maven
 
 ```xml
 <dependency>
-    <groupId>com.czl.api</groupId>
-    <artifactId>czl-java</artifactId>
-    <version>0.0.1-alpha.0</version>
+  <groupId>com.czl.api</groupId>
+  <artifactId>czl-java</artifactId>
+  <version>0.1.0-alpha.1</version>
 </dependency>
 ```
+
+<!-- x-release-please-end -->
 
 ## Requirements
 
@@ -39,7 +51,7 @@ import com.czl.api.client.okhttp.CzlOkHttpClient;
 import com.czl.api.models.keys.KeyValidateTokenParams;
 import com.czl.api.models.keys.KeyValidateTokenResponse;
 
-// Configures using the `CZL_API_KEY` environment variable
+// Configures using the `CZL_API_KEY` and `CZL_BASE_URL` environment variables
 CzlClient client = CzlOkHttpClient.fromEnv();
 
 KeyValidateTokenParams params = KeyValidateTokenParams.builder()
@@ -56,7 +68,7 @@ Configure the client using environment variables:
 import com.czl.api.client.CzlClient;
 import com.czl.api.client.okhttp.CzlOkHttpClient;
 
-// Configures using the `CZL_API_KEY` environment variable
+// Configures using the `CZL_API_KEY` and `CZL_BASE_URL` environment variables
 CzlClient client = CzlOkHttpClient.fromEnv();
 ```
 
@@ -78,7 +90,7 @@ import com.czl.api.client.CzlClient;
 import com.czl.api.client.okhttp.CzlOkHttpClient;
 
 CzlClient client = CzlOkHttpClient.builder()
-    // Configures using the `CZL_API_KEY` environment variable
+    // Configures using the `CZL_API_KEY` and `CZL_BASE_URL` environment variables
     .fromEnv()
     .apiKey("My API Key")
     .build();
@@ -86,9 +98,10 @@ CzlClient client = CzlOkHttpClient.builder()
 
 See this table for the available options:
 
-| Setter   | Environment variable | Required | Default value |
-| -------- | -------------------- | -------- | ------------- |
-| `apiKey` | `CZL_API_KEY`        | false    | -             |
+| Setter    | Environment variable | Required | Default value               |
+| --------- | -------------------- | -------- | --------------------------- |
+| `apiKey`  | `CZL_API_KEY`        | false    | -                           |
+| `baseUrl` | `CZL_BASE_URL`       | true     | `"https://api.example.com"` |
 
 > [!TIP]
 > Don't create more than one client in the same application. Each client has a connection pool and
@@ -119,7 +132,7 @@ import com.czl.api.models.keys.KeyValidateTokenParams;
 import com.czl.api.models.keys.KeyValidateTokenResponse;
 import java.util.concurrent.CompletableFuture;
 
-// Configures using the `CZL_API_KEY` environment variable
+// Configures using the `CZL_API_KEY` and `CZL_BASE_URL` environment variables
 CzlClient client = CzlOkHttpClient.fromEnv();
 
 KeyValidateTokenParams params = KeyValidateTokenParams.builder()
@@ -137,7 +150,7 @@ import com.czl.api.models.keys.KeyValidateTokenParams;
 import com.czl.api.models.keys.KeyValidateTokenResponse;
 import java.util.concurrent.CompletableFuture;
 
-// Configures using the `CZL_API_KEY` environment variable
+// Configures using the `CZL_API_KEY` and `CZL_BASE_URL` environment variables
 CzlClientAsync client = CzlOkHttpClientAsync.fromEnv();
 
 KeyValidateTokenParams params = KeyValidateTokenParams.builder()
@@ -183,16 +196,16 @@ The SDK throws custom unchecked exception types:
 
 - [`CzlServiceException`](czl-java-core/src/main/kotlin/com/czl/api/errors/CzlServiceException.kt): Base class for HTTP errors. See this table for which exception subclass is thrown for each HTTP status code:
 
-  | Status | Exception                       |
-  | ------ | ------------------------------- |
-  | 400    | `BadRequestException`           |
-  | 401    | `AuthenticationException`       |
-  | 403    | `PermissionDeniedException`     |
-  | 404    | `NotFoundException`             |
-  | 422    | `UnprocessableEntityException`  |
-  | 429    | `RateLimitException`            |
-  | 5xx    | `InternalServerException`       |
-  | others | `UnexpectedStatusCodeException` |
+  | Status | Exception                                                                                                            |
+  | ------ | -------------------------------------------------------------------------------------------------------------------- |
+  | 400    | [`BadRequestException`](czl-java-core/src/main/kotlin/com/czl/api/errors/BadRequestException.kt)                     |
+  | 401    | [`UnauthorizedException`](czl-java-core/src/main/kotlin/com/czl/api/errors/UnauthorizedException.kt)                 |
+  | 403    | [`PermissionDeniedException`](czl-java-core/src/main/kotlin/com/czl/api/errors/PermissionDeniedException.kt)         |
+  | 404    | [`NotFoundException`](czl-java-core/src/main/kotlin/com/czl/api/errors/NotFoundException.kt)                         |
+  | 422    | [`UnprocessableEntityException`](czl-java-core/src/main/kotlin/com/czl/api/errors/UnprocessableEntityException.kt)   |
+  | 429    | [`RateLimitException`](czl-java-core/src/main/kotlin/com/czl/api/errors/RateLimitException.kt)                       |
+  | 5xx    | [`InternalServerException`](czl-java-core/src/main/kotlin/com/czl/api/errors/InternalServerException.kt)             |
+  | others | [`UnexpectedStatusCodeException`](czl-java-core/src/main/kotlin/com/czl/api/errors/UnexpectedStatusCodeException.kt) |
 
 - [`CzlIoException`](czl-java-core/src/main/kotlin/com/czl/api/errors/CzlIoException.kt): I/O networking errors.
 
@@ -362,6 +375,19 @@ JsonValue complexValue = JsonValue.from(Map.of(
 ));
 ```
 
+Normally a `Builder` class's `build` method will throw [`IllegalStateException`](https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html) if any required parameter or property is unset.
+
+To forcibly omit a required parameter or property, pass [`JsonMissing`](czl-java-core/src/main/kotlin/com/czl/api/core/Values.kt):
+
+```java
+import com.czl.api.core.JsonMissing;
+import com.czl.api.models.keys.KeyValidateTokenParams;
+
+KeyValidateTokenParams params = KeyValidateTokenParams.builder()
+    .token(JsonMissing.of())
+    .build();
+```
+
 ### Response properties
 
 To access undocumented response properties, call the `_additionalProperties()` method:
@@ -491,4 +517,4 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/czl-java/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/angular003/czl-java/issues) with questions, bugs, or suggestions.

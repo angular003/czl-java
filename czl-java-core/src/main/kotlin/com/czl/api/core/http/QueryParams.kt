@@ -1,3 +1,5 @@
+// File generated from our OpenAPI spec by Stainless.
+
 package com.czl.api.core.http
 
 import com.czl.api.core.toImmutable
