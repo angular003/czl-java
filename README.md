@@ -316,6 +316,42 @@ CzlClient client = CzlOkHttpClient.builder()
     .build();
 ```
 
+### Custom HTTP client
+
+The SDK consists of three artifacts:
+
+- `czl-java-core`
+  - Contains core SDK logic
+  - Does not depend on [OkHttp](https://square.github.io/okhttp)
+  - Exposes [`CzlClient`](czl-java-core/src/main/kotlin/com/czl/api/client/CzlClient.kt), [`CzlClientAsync`](czl-java-core/src/main/kotlin/com/czl/api/client/CzlClientAsync.kt), [`CzlClientImpl`](czl-java-core/src/main/kotlin/com/czl/api/client/CzlClientImpl.kt), and [`CzlClientAsyncImpl`](czl-java-core/src/main/kotlin/com/czl/api/client/CzlClientAsyncImpl.kt), all of which can work with any HTTP client
+- `czl-java-client-okhttp`
+  - Depends on [OkHttp](https://square.github.io/okhttp)
+  - Exposes [`CzlOkHttpClient`](czl-java-client-okhttp/src/main/kotlin/com/czl/api/client/okhttp/CzlOkHttpClient.kt) and [`CzlOkHttpClientAsync`](czl-java-client-okhttp/src/main/kotlin/com/czl/api/client/okhttp/CzlOkHttpClientAsync.kt), which provide a way to construct [`CzlClientImpl`](czl-java-core/src/main/kotlin/com/czl/api/client/CzlClientImpl.kt) and [`CzlClientAsyncImpl`](czl-java-core/src/main/kotlin/com/czl/api/client/CzlClientAsyncImpl.kt), respectively, using OkHttp
+- `czl-java`
+  - Depends on and exposes the APIs of both `czl-java-core` and `czl-java-client-okhttp`
+  - Does not have its own logic
+
+This structure allows replacing the SDK's default HTTP client without pulling in unnecessary dependencies.
+
+#### Customized [`OkHttpClient`](https://square.github.io/okhttp/3.x/okhttp/okhttp3/OkHttpClient.html)
+
+> [!TIP]
+> Try the available [network options](#network-options) before replacing the default client.
+
+To use a customized `OkHttpClient`:
+
+1. Replace your [`czl-java` dependency](#installation) with `czl-java-core`
+2. Copy `czl-java-client-okhttp`'s [`OkHttpClient`](czl-java-client-okhttp/src/main/kotlin/com/czl/api/client/okhttp/OkHttpClient.kt) class into your code and customize it
+3. Construct [`CzlClientImpl`](czl-java-core/src/main/kotlin/com/czl/api/client/CzlClientImpl.kt) or [`CzlClientAsyncImpl`](czl-java-core/src/main/kotlin/com/czl/api/client/CzlClientAsyncImpl.kt), similarly to [`CzlOkHttpClient`](czl-java-client-okhttp/src/main/kotlin/com/czl/api/client/okhttp/CzlOkHttpClient.kt) or [`CzlOkHttpClientAsync`](czl-java-client-okhttp/src/main/kotlin/com/czl/api/client/okhttp/CzlOkHttpClientAsync.kt), using your customized client
+
+### Completely custom HTTP client
+
+To use a completely custom HTTP client:
+
+1. Replace your [`czl-java` dependency](#installation) with `czl-java-core`
+2. Write a class that implements the [`HttpClient`](czl-java-core/src/main/kotlin/com/czl/api/core/http/HttpClient.kt) interface
+3. Construct [`CzlClientImpl`](czl-java-core/src/main/kotlin/com/czl/api/client/CzlClientImpl.kt) or [`CzlClientAsyncImpl`](czl-java-core/src/main/kotlin/com/czl/api/client/CzlClientAsyncImpl.kt), similarly to [`CzlOkHttpClient`](czl-java-client-okhttp/src/main/kotlin/com/czl/api/client/okhttp/CzlOkHttpClient.kt) or [`CzlOkHttpClientAsync`](czl-java-client-okhttp/src/main/kotlin/com/czl/api/client/okhttp/CzlOkHttpClientAsync.kt), using your new client class
+
 ## Undocumented API functionality
 
 The SDK is typed for convenient usage of the documented API. However, it also supports working with undocumented or not yet supported parts of the API.
