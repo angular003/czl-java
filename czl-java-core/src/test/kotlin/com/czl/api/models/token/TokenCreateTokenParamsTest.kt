@@ -2,12 +2,12 @@
 
 package com.czl.api.models.token
 
-import kotlin.test.assertNotNull
+import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
-class TokenCreateTokenParamsTest {
+internal class TokenCreateTokenParamsTest {
 
     @Disabled("skipped: tests are disabled for the time being")
     @Test
@@ -33,9 +33,8 @@ class TokenCreateTokenParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.accessToken()).isEqualTo("access_token")
-        assertThat(body.apis()).contains(listOf("string"))
+        assertThat(body.apis().getOrNull()).containsExactly("string")
         assertThat(body.productId()).contains(0L)
         assertThat(body.times()).contains(0L)
     }
@@ -47,7 +46,6 @@ class TokenCreateTokenParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.accessToken()).isEqualTo("access_token")
     }
 }

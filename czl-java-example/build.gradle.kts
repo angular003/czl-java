@@ -1,7 +1,10 @@
 plugins {
-    id("czl.kotlin")
-    id("java")
+    id("czl.java")
     application
+}
+
+repositories {
+    mavenCentral()
 }
 
 dependencies {

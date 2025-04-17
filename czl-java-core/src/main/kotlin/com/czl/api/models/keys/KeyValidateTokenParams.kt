@@ -2,7 +2,6 @@
 
 package com.czl.api.models.keys
 
-import com.czl.api.core.NoAutoDetect
 import com.czl.api.core.Params
 import com.czl.api.core.checkRequired
 import com.czl.api.core.http.Headers
@@ -23,15 +22,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.token.let { queryParams.put("token", listOf(it.toString())) }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -48,7 +38,6 @@ private constructor(
     }
 
     /** A builder for [KeyValidateTokenParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var token: String? = null
@@ -162,6 +151,18 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [KeyValidateTokenParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .token()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): KeyValidateTokenParams =
             KeyValidateTokenParams(
                 checkRequired("token", token),
@@ -169,6 +170,16 @@ private constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                put("token", token)
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
