@@ -275,7 +275,6 @@ Requests time out after 1 minute by default.
 To set a custom timeout, configure the method call using the `timeout` method:
 
 ```java
-import com.czl.api.models.keys.KeyValidateTokenParams;
 import com.czl.api.models.keys.KeyValidateTokenResponse;
 
 KeyValidateTokenResponse response = client.keys().validateToken(
@@ -506,7 +505,6 @@ KeyValidateTokenResponse response = client.keys().validateToken(params).validate
 Or configure the method call to validate the response using the `responseValidation` method:
 
 ```java
-import com.czl.api.models.keys.KeyValidateTokenParams;
 import com.czl.api.models.keys.KeyValidateTokenResponse;
 
 KeyValidateTokenResponse response = client.keys().validateToken(
