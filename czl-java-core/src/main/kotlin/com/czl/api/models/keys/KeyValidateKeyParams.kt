@@ -2,7 +2,6 @@
 
 package com.czl.api.models.keys
 
-import com.czl.api.core.NoAutoDetect
 import com.czl.api.core.Params
 import com.czl.api.core.checkRequired
 import com.czl.api.core.http.Headers
@@ -23,15 +22,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.key.let { queryParams.put("key", listOf(it.toString())) }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -48,7 +38,6 @@ private constructor(
     }
 
     /** A builder for [KeyValidateKeyParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var key: String? = null
@@ -162,6 +151,18 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [KeyValidateKeyParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .key()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): KeyValidateKeyParams =
             KeyValidateKeyParams(
                 checkRequired("key", key),
@@ -169,6 +170,16 @@ private constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                put("key", key)
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {

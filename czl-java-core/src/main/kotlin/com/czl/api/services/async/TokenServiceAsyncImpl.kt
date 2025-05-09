@@ -3,6 +3,7 @@
 package com.czl.api.services.async
 
 import com.czl.api.core.ClientOptions
+import com.czl.api.core.JsonValue
 import com.czl.api.core.RequestOptions
 import com.czl.api.core.handlers.errorHandler
 import com.czl.api.core.handlers.jsonHandler
@@ -14,7 +15,6 @@ import com.czl.api.core.http.HttpResponseFor
 import com.czl.api.core.http.json
 import com.czl.api.core.http.parseable
 import com.czl.api.core.prepareAsync
-import com.czl.api.errors.CzlError
 import com.czl.api.models.token.TokenCreateTokenParams
 import com.czl.api.models.token.TokenCreateTokenResponse
 import com.czl.api.models.token.TokenRetrieveAccessTokenParams
@@ -47,7 +47,7 @@ class TokenServiceAsyncImpl internal constructor(private val clientOptions: Clie
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         TokenServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<CzlError> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
         private val createTokenHandler: Handler<TokenCreateTokenResponse> =
             jsonHandler<TokenCreateTokenResponse>(clientOptions.jsonMapper)
